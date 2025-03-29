@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Visitors Management</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .btn-light {
+        background-color: #ffffff;
+        color: #007bff;
+      }
+      .nav-link.active {
+        background-color: #007bff;
+        color: white;
+      }
+      table th, table td {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="container py-5">
+      <h1 class="text-uppercase text-center text-primary">Visitors</h1>
+
+      <div class="d-flex gap-1">
+        <a class="nav-link btn btn-primary text-white p-2" href="book.html"
+          >Books</a
+        >
+        <a class="nav-link btn btn-primary text-white p-2" href="visitor.html"
+          >Visitors</a
+        >
+        <a class="nav-link btn btn-primary text-white p-2" href="card.html"
+          >Cards</a
+        >
+      </div> 
+      <!-- Add Visitor Button -->
+      <div class="row py-3">
+        <div class="col-md-12 bg-primary text-white p-3 rounded d-flex justify-content-between align-items-center">
+          <h5 class="m-0">All Visitors</h5>
+          <button class="btn btn-light btn-sm" id="addVisitorButton" data-bs-toggle="modal" data-bs-target="#addVisitorModal">Add New Visitor</button>
+        </div>
+      </div>
+
+      <!-- Visitor Search and Sort -->
+      <div class="card p-3 shadow-sm">
+        <div class="d-flex mb-3">
+          <input type="text" id="searchVisitor" class="form-control" placeholder="Search by name or phone...">
+          <button class="btn btn-secondary" id="sortVisitor">Sort</button>
+        </div>
+        <table class="table table-hover" id="visitorTable">
+          <thead class="table-secondary">
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Visitor rows will go here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal for Add/Edit Visitor -->
+    <div class="modal fade" id="addVisitorModal" tabindex="-1" aria-labelledby="addVisitorModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addVisitorModalLabel">Add New Visitor</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="visitorForm">
+              <div class="mb-3">
+                <label for="visitorName" class="form-label">Visitor Name</label>
+                <input type="text" class="form-control" id="visitorName" required>
+              </div>
+              <div class="mb-3">
+                <label for="visitorPhone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="visitorPhone" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Save Visitor</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function() {
+        const visitors = JSON.parse(localStorage.getItem('visitors')) || [];
+        let currentIndex = null; // Track index for editing
+        const visitorTable = $("#visitorTable tbody");
+
+        function loadVisitors() {
+          visitorTable.empty();
+          visitors.forEach((visitor, index) => {
+            visitorTable.append(`
+              <tr>
+                <td>${index + 1}</td>
+                <td>${visitor.name}</td>
+                <td>${visitor.phone}</td>
+                <td>
+                  <button class="btn btn-danger btn-sm deleteVisitor" data-index="${index}">Delete</button>
+                </td>
+              </tr>
+            `);
+          });
+        }
+
+        loadVisitors();
+
+        $("#visitorForm").submit(function(e) {
+          e.preventDefault();
+          const visitorName = $("#visitorName").val();
+          const visitorPhone = $("#visitorPhone").val();
+
+          if (visitorName && visitorPhone) {
+            if (currentIndex === null) {
+              // Add new visitor
+              visitors.push({ name: visitorName, phone: visitorPhone });
+            } else {
+              // Edit existing visitor
+              visitors[currentIndex] = { name: visitorName, phone: visitorPhone };
+              currentIndex = null;
+            }
+            localStorage.setItem('visitors', JSON.stringify(visitors));
+            loadVisitors();
+            $("#addVisitorModal").modal("hide");
+            $("#visitorForm")[0].reset();
+          }
+        });
+
+        $("#searchVisitor").on("input", function() {
+          const searchTerm = $(this).val().toLowerCase();
+          $("#visitorTable tbody tr").each(function() {
+            const name = $(this).find("td:nth-child(2)").text().toLowerCase();
+            const phone = $(this).find("td:nth-child(3)").text().toLowerCase();
+            $(this).toggle(name.includes(searchTerm) || phone.includes(searchTerm));
+          });
+        });
+
+        $("#sortVisitor").click(function() {
+          visitors.sort((a, b) => a.name.localeCompare(b.name));
+          localStorage.setItem('visitors', JSON.stringify(visitors));
+          loadVisitors();
+        });
+
+        $(document).on("click", ".editVisitor", function() {
+          currentIndex = $(this).data("index");
+          const visitor = visitors[currentIndex];
+          $("#visitorName").val(visitor.name);
+          $("#visitorPhone").val(visitor.phone);
+        });
+
+        $(document).on("click", ".deleteVisitor", function() {
+          const index = $(this).data("index");
+          visitors.splice(index, 1);
+          localStorage.setItem('visitors', JSON.stringify(visitors));
+          loadVisitors();
+        });
+      });
+    </script>
+  </body>
+</html>
