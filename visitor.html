@@ -8,90 +8,261 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
+      :root {
+        --primary-color: #ff6b9d;
+        --secondary-color: #fff0f5;
+        --accent-color: #ff4785;
+        --text-color: #5a3a44;
+        --light-color: #ffffff;
+        --success-color: #a8e6cf;
+        --warning-color: #ffd3b6;
+        --danger-color: #ffaaa5;
+      }
+      
       body {
-        background-color: #f8f9fa;
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       }
-      .btn-light {
-        background-color: #ffffff;
-        color: #007bff;
+      
+      .navbar {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(255, 107, 157, 0.15);
       }
-      .nav-link.active {
-        background-color: #007bff;
+      
+      .card {
+        border: none;
+        border-radius: 0.35rem;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(255, 107, 157, 0.1);
+        margin-bottom: 1.5rem;
+        background-color: var(--light-color);
+      }
+      
+      .card-header {
+        background-color: var(--light-color);
+        border-bottom: 1px solid #ffd6e7;
+        padding: 1rem 1.35rem;
+        font-weight: 600;
+      }
+      
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
         color: white;
       }
-      table th, table td {
-        vertical-align: middle;
+      
+      .btn-primary:hover {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+        color: white;
+      }
+      
+      .btn-outline-primary {
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+      
+      .btn-outline-primary:hover {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+      }
+      
+      .btn-success {
+        background-color: var(--success-color);
+        border-color: var(--success-color);
+        color: var(--text-color);
+      }
+      
+      .btn-warning {
+        background-color: var(--warning-color);
+        border-color: var(--warning-color);
+        color: var(--text-color);
+      }
+      
+      .btn-danger {
+        background-color: var(--danger-color);
+        border-color: var(--danger-color);
+        color: var(--text-color);
+      }
+      
+      .table {
+        color: var(--text-color);
+      }
+      
+      .table th {
+        border-top: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        color: #ff9ab7;
+      }
+      
+      .table-hover tbody tr:hover {
+        background-color: rgba(255, 107, 157, 0.05);
+      }
+      
+      .search-box {
+        position: relative;
+      }
+      
+      .search-box i {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: #ffb3cb;
+      }
+      
+      .search-box input {
+        padding-left: 2.5rem;
+        border-color: #ffd6e7;
+      }
+      
+      .page-title {
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      }
+      
+      .nav-pills .nav-link.active {
+        background-color: var(--primary-color);
+      }
+      
+      .badge {
+        font-weight: 500;
+        padding: 0.35em 0.65em;
+      }
+      
+      .form-control, .form-select {
+        border-color: #ffd6e7;
+      }
+      
+      .form-control:focus, .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(255, 107, 157, 0.25);
+      }
+      
+      .btn-outline-secondary {
+        border-color: #ffd6e7;
+        color: var(--text-color);
+      }
+      
+      .btn-outline-secondary:hover {
+        background-color: #ffd6e7;
+        border-color: #ffd6e7;
+      }
+      
+      .modal-header {
+        background-color: var(--primary-color);
+        color: white;
+      }
+      
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
       }
     </style>
   </head>
   <body>
-
-    <div class="container py-5">
-      <h1 class="text-uppercase text-center text-primary">Visitors</h1>
-
-      <div class="d-flex gap-1">
-        <a class="nav-link btn btn-primary text-white p-2" href="book.html"
-          >Books</a
-        >
-        <a class="nav-link btn btn-primary text-white p-2" href="visitor.html"
-          >Visitors</a
-        >
-        <a class="nav-link btn btn-primary text-white p-2" href="card.html"
-          >Cards</a
-        >
-      </div> 
-      <!-- Add Visitor Button -->
-      <div class="row py-3">
-        <div class="col-md-12 bg-primary text-white p-3 rounded d-flex justify-content-between align-items-center">
-          <h5 class="m-0">All Visitors</h5>
-          <button class="btn btn-light btn-sm" id="addVisitorButton" data-bs-toggle="modal" data-bs-target="#addVisitorModal">Add New Visitor</button>
+    <div class="container py-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="page-title"><i class="fas fa-users me-2"></i>Visitors Management</h1>
+        <div class="btn-group">
+          <a class="btn btn-outline-primary" href="book.html"><i class="fas fa-book me-1"></i>Books</a>
+          <a class="btn btn-primary" href="visitor.html"><i class="fas fa-users me-1"></i>Visitors</a>
+          <a class="btn btn-outline-primary" href="card.html"><i class="fas fa-address-card me-1"></i>Cards</a>
         </div>
       </div>
 
-      <!-- Visitor Search and Sort -->
-      <div class="card p-3 shadow-sm">
-        <div class="d-flex mb-3">
-          <input type="text" id="searchVisitor" class="form-control" placeholder="Search by name or phone...">
-          <button class="btn btn-secondary" id="sortVisitor">Sort</button>
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h6 class="m-0 font-weight-bold"><i class="fas fa-user-friends me-1"></i>Visitor Records</h6>
+          <button class="btn btn-primary btn-sm" id="addVisitorButton" data-bs-toggle="modal" data-bs-target="#addVisitorModal">
+            <i class="fas fa-plus me-1"></i>Add New Visitor
+          </button>
         </div>
-        <table class="table table-hover" id="visitorTable">
-          <thead class="table-secondary">
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Visitor rows will go here -->
-          </tbody>
-        </table>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-6 search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" id="searchVisitor" class="form-control" placeholder="Search visitors...">
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+              <button class="btn btn-outline-secondary me-2" id="sortVisitor">
+                <i class="fas fa-sort-alpha-down me-1"></i>Sort
+              </button>
+              <button class="btn btn-outline-secondary" id="refreshVisitors">
+                <i class="fas fa-sync-alt me-1"></i>Refresh
+              </button>
+            </div>
+          </div>
+          
+          <div class="table-responsive">
+            <table class="table table-hover" id="visitorTable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Visitor</th>
+                  <th>Contact</th>
+                  <th>Registered</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Visitor rows will go here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Modal for Add/Edit Visitor -->
+    <!-- Add/Edit Visitor Modal -->
     <div class="modal fade" id="addVisitorModal" tabindex="-1" aria-labelledby="addVisitorModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addVisitorModalLabel">Add New Visitor</h5>
+            <h5 class="modal-title" id="addVisitorModalLabel"><i class="fas fa-user-plus me-1"></i>Add New Visitor</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form id="visitorForm">
               <div class="mb-3">
-                <label for="visitorName" class="form-label">Visitor Name</label>
+                <label for="visitorName" class="form-label">Full Name</label>
                 <input type="text" class="form-control" id="visitorName" required>
               </div>
-              <div class="mb-3">
-                <label for="visitorPhone" class="form-label">Phone</label>
-                <input type="text" class="form-control" id="visitorPhone" required>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="visitorPhone" class="form-label">Phone Number</label>
+                  <input type="tel" class="form-control" id="visitorPhone" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="visitorEmail" class="form-label">Email Address</label>
+                  <input type="email" class="form-control" id="visitorEmail">
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary">Save Visitor</button>
+              <div class="mb-3">
+                <label for="visitorAddress" class="form-label">Address</label>
+                <textarea class="form-control" id="visitorAddress" rows="2"></textarea>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Visitor</button>
+              </div>
             </form>
           </div>
         </div>
@@ -101,19 +272,40 @@
     <script>
       $(document).ready(function() {
         const visitors = JSON.parse(localStorage.getItem('visitors')) || [];
-        let currentIndex = null; // Track index for editing
+        let currentIndex = null;
         const visitorTable = $("#visitorTable tbody");
 
         function loadVisitors() {
           visitorTable.empty();
           visitors.forEach((visitor, index) => {
+            const initials = visitor.name.split(' ').map(n => n[0]).join('').toUpperCase();
             visitorTable.append(`
               <tr>
                 <td>${index + 1}</td>
-                <td>${visitor.name}</td>
-                <td>${visitor.phone}</td>
                 <td>
-                  <button class="btn btn-danger btn-sm deleteVisitor" data-index="${index}">Delete</button>
+                  <div class="d-flex align-items-center">
+                    <div class="avatar me-3">${initials}</div>
+                    <div>
+                      <strong>${visitor.name}</strong><br>
+                      <small class="text-muted">ID: ${index + 1000}</small>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  ${visitor.phone}<br>
+                  <small class="text-muted">${visitor.email || 'No email'}</small>
+                </td>
+                <td>${new Date().toLocaleDateString()}</td>
+                <td><span class="badge bg-success">Active</span></td>
+                <td>
+                  <div class="btn-group btn-group-sm">
+                    <button class="btn btn-warning editVisitor" data-index="${index}" data-bs-toggle="modal" data-bs-target="#addVisitorModal">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger deleteVisitor" data-index="${index}">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
                 </td>
               </tr>
             `);
@@ -124,18 +316,22 @@
 
         $("#visitorForm").submit(function(e) {
           e.preventDefault();
-          const visitorName = $("#visitorName").val();
-          const visitorPhone = $("#visitorPhone").val();
+          const visitorData = {
+            name: $("#visitorName").val(),
+            phone: $("#visitorPhone").val(),
+            email: $("#visitorEmail").val(),
+            address: $("#visitorAddress").val(),
+            registered: new Date().toISOString().split('T')[0]
+          };
 
-          if (visitorName && visitorPhone) {
+          if (visitorData.name && visitorData.phone) {
             if (currentIndex === null) {
-              // Add new visitor
-              visitors.push({ name: visitorName, phone: visitorPhone });
+              visitors.push(visitorData);
             } else {
-              // Edit existing visitor
-              visitors[currentIndex] = { name: visitorName, phone: visitorPhone };
+              visitors[currentIndex] = visitorData;
               currentIndex = null;
             }
+            
             localStorage.setItem('visitors', JSON.stringify(visitors));
             loadVisitors();
             $("#addVisitorModal").modal("hide");
@@ -146,9 +342,8 @@
         $("#searchVisitor").on("input", function() {
           const searchTerm = $(this).val().toLowerCase();
           $("#visitorTable tbody tr").each(function() {
-            const name = $(this).find("td:nth-child(2)").text().toLowerCase();
-            const phone = $(this).find("td:nth-child(3)").text().toLowerCase();
-            $(this).toggle(name.includes(searchTerm) || phone.includes(searchTerm));
+            const rowText = $(this).text().toLowerCase();
+            $(this).toggle(rowText.includes(searchTerm));
           });
         });
 
@@ -158,18 +353,33 @@
           loadVisitors();
         });
 
+        $("#refreshVisitors").click(function() {
+          loadVisitors();
+        });
+
         $(document).on("click", ".editVisitor", function() {
           currentIndex = $(this).data("index");
           const visitor = visitors[currentIndex];
           $("#visitorName").val(visitor.name);
           $("#visitorPhone").val(visitor.phone);
+          $("#visitorEmail").val(visitor.email || '');
+          $("#visitorAddress").val(visitor.address || '');
+          $("#addVisitorModalLabel").html('<i class="fas fa-user-edit me-1"></i>Edit Visitor');
         });
 
         $(document).on("click", ".deleteVisitor", function() {
-          const index = $(this).data("index");
-          visitors.splice(index, 1);
-          localStorage.setItem('visitors', JSON.stringify(visitors));
-          loadVisitors();
+          if (confirm("Are you sure you want to delete this visitor?")) {
+            const index = $(this).data("index");
+            visitors.splice(index, 1);
+            localStorage.setItem('visitors', JSON.stringify(visitors));
+            loadVisitors();
+          }
+        });
+
+        // Reset modal title when hidden
+        $('#addVisitorModal').on('hidden.bs.modal', function () {
+          $("#addVisitorModalLabel").html('<i class="fas fa-user-plus me-1"></i>Add New Visitor');
+          currentIndex = null;
         });
       });
     </script>
